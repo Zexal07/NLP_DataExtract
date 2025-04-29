@@ -1,0 +1,105 @@
+# README
+
+## Project Description
+This project is designed to process PDF documents, extract relevant information, and answer questions based on the extracted data. 
+It includes functionalities for chunking PDF content, extracting metadata, performing OCR on tables and images, and answering questions using a question-answering pipeline.
+
+## Dependencies
+To run this project, you need to install the following dependencies:
+- fuzzywuzzy
+- pdfplumber
+- pytesseract
+- pillow
+- fitz (PyMuPDF)
+- langchain
+- sentence_transformers
+- transformers
+
+You can install these dependencies using pip:
+```bash
+pip install fuzzywuzzy pdfplumber pytesseract pillow fitz langchain sentence_transformers transformers
+```
+
+## Usage
+
+### Initialization
+To initialize the PDFChunkProcessor, you can specify the output directory and whether to save structured data:
+```python
+processor = PDFChunkProcessor(output_dir="output", save_structured=True)
+```
+
+### Processing PDFs
+You can process PDFs in a directory or specific PDF files:
+```python
+processor.process_pdf(pdf_dir="path/to/pdf/directory", pdf_name="specific_pdf_file.pdf")
+```
+If `pdf_name` is not specified, all PDFs in the directory will be processed.
+
+### Extracting Metadata
+Metadata extraction includes company name, report year, and other relevant information:
+```python
+metadata = processor.extract_metadata(text="sample text", filename="sample_filename.pdf")
+```
+
+### Answering Questions
+You can ask questions based on the processed data:
+```python
+answer = processor.answer(question="What are the scope 1 emissions for Dangote Cement in 2023?")
+print(json.dumps(answer, indent=2))
+```
+
+### Comparison Questions
+The system can also handle comparison questions:
+```python
+comparison = processor.compare_information(question="Compare scope 1 emissions between Dangote Cement and Saudi Aramco in 2023.")
+print(json.dumps(comparison, indent=2))
+```
+
+### Saving Chunks
+Processed chunks can be saved to a JSON file:
+```python
+processor.save_chunks(prefix="pdf_chunks")
+```
+
+## Main Function
+The main function provides an interactive CLI for processing PDFs and asking questions:
+```python
+if __name__ == "__main__":
+    main()
+```
+
+### CLI Interaction
+1. Enter the directory containing PDFs.
+2. Choose to process all PDFs or select specific files.
+3. Ask questions based on the processed data.
+
+## Example Workflow
+1. Initialize the processor.
+2. Process PDFs in a directory.
+3. Extract metadata and save chunks.
+4. Ask questions and get answers.
+
+## Known Companies
+The system includes a predefined list of known companies for metadata extraction:
+```python
+KNOWN_COMPANIES = [
+    "Dangote Cement", "Maaden", "Chemplast Sanmar", "Dangote Group", "Saudi Aramco", ...
+]
+```
+The known companies list can be expanded upon by simply adding the company name to the list
+
+## Keywords
+The system uses predefined keywords for extracting relevant information:
+```python
+keywords = {
+    "scope_1": ["scope 1", "direct emissions", ...],
+    "scope_2": ["scope 2", "indirect emissions", ...],
+    ...
+}
+```
+
+## Output
+Processed data and answers are saved in JSON format for easy access and further analysis.
+
+## Contact
+For any questions or issues, please contact Zexal07.
