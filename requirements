@@ -1,0 +1,9 @@
+pip install fuzzywuzzy
+pip install pdfplumber
+pip install pytesseract
+pip install pillow
+pip install pymupdf
+pip install langchain
+pip install sentence-transformers
+pip install transformers
+pip install langchain-community
